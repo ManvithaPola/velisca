@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Velisca</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --beige: #EFE1CB;
+            --gray: #545454;
+            --black: #000000;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+        
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background-color: var(--beige);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-bg-beige {
+            background-color: var(--beige);
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--beige);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--beige);
+            color: var(--beige);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--beige);
+            color: var(--black);
+        }
+        
+        .cursor-dot {
+            mix-blend-mode: difference;
+            z-index: 9999;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--white);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--beige);
+        }
+    </style>
+</head>
+<body x-data="{ menuOpen: false, cursorX: 0, cursorY: 0 }" 
+      @mousemove="cursorX = $event.clientX; cursorY = $event.clientY">
+    
+    <!-- Custom Cursor -->
+    <div class="cursor-dot fixed w-4 h-4 rounded-full bg-beige pointer-events-none transition-transform duration-200 transform -translate-x-1/2 -translate-y-1/2 hidden lg:block"
+         :style="`left: ${cursorX}px; top: ${cursorY}px`">
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-black text-white py-6 z-50 transition-all duration-300" id="main-nav">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex-shrink-0">
+                <a href="#" class="logo-text text-2xl" style="color: var(--beige)">
+                    <span class="text-3xl font-bold">V</span>ELISCA
+                </a>
+            </div>
+            <div class="hidden lg:flex space-x-8 text-sm tracking-wider">
+                <a href="index.html" class="nav-link hover:text-beige" style="color: var(--beige)">Home</a>
+                <a href="#story" class="nav-link hover:text-beige" style="color: var(--beige)">Story</a>
+                <a href="#craftsmanship" class="nav-link hover:text-beige" style="color: var(--beige)">Craftsmanship</a>
+                <a href="#sustainability" class="nav-link hover:text-beige" style="color: var(--beige)">Sustainability</a>
+                <a href="#careers" class="nav-link hover:text-beige" style="color: var(--beige)">Careers</a>
+                <a href="#press" class="nav-link hover:text-beige" style="color: var(--beige)">Press</a>
+            </div>
+            <div class="flex items-center lg:hidden">
+                <button @click="menuOpen = !menuOpen" class="focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--beige)">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="lg:hidden fixed top-0 right-0 h-full w-4/5 bg-black text-white z-50 p-10 transition-transform duration-500 ease-in-out"
+             :class="menuOpen ? 'translate-x-0' : 'translate-x-full'">
+            <div class="flex justify-end mb-10">
+                <button @click="menuOpen = false" class="focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--beige)">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6 text-lg">
+                <a href="#about" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">About</a>
+                <a href="#story" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">Story</a>
+                <a href="#craftsmanship" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">Craftsmanship</a>
+                <a href="#sustainability" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">Sustainability</a>
+                <a href="#careers" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">Careers</a>
+                <a href="#press" @click="menuOpen = false" class="hover:text-beige transition-colors" style="color: var(--beige)">Press</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden pt-24">
+        <div class="absolute inset-0 z-0">
+            <img src="a.avif" alt="Velisca Fashion" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-light tracking-wider mb-6">ABOUT VELISCA</h1>
+            <p class="text-lg md:text-xl font-light tracking-widest uppercase">Where timeless elegance meets visionary design</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="section-title text-3xl md:text-4xl text-black mb-12">Our Philosophy</h2>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Velisca represents the pinnacle of contemporary luxury—where timeless elegance meets visionary design. We cultivate a refined aesthetic that transcends fleeting trends, creating pieces that serve as artifacts of exceptional quality and enduring style.
+                </p>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Our philosophy centers on the concept of mindful luxury—a deliberate approach to design that honors craftsmanship, embraces innovation, and respects our planet's finite resources. We believe that true luxury lies not in excess, but in the perfect equilibrium between form and function.
+                </p>
+                <p class="text-lg font-light leading-relaxed">
+                    Each Velisca creation is a statement of intention—a testament to our commitment to redefine luxury for a more conscious era. We invite you to experience the quiet confidence that comes from wearing something created with purpose and precision.
+                </p>
+            </div>
+            <div class="relative">
+                <div class="aspect-w-4 aspect-h-5 relative overflow-hidden">
+                    <img src="p.jpg" alt="Velisca Elegance" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-black text-white reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-last lg:order-first">
+                <div class="aspect-w-4 aspect-h-3 relative overflow-hidden">
+                    <img src="s.avif" alt="Velisca Journey" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div>
+                <h2 class="section-title text-3xl md:text-4xl mb-12" style="color: var(--beige)">Our Story</h2>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Velisca emerged from a singular vision in 2018—to create a modern luxury house unbound by convention. Founded by design visionary Elena Velisca in her minimalist Milanese atelier, the brand began as an intimate collection of sculptural accessories that quickly garnered international acclaim.
+                </p>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Our journey has been one of deliberate evolution. What started as a refined accessories line has expanded into a complete lifestyle expression spanning ready-to-wear, fine jewelry, and curated home objects—each extension an organic progression of our core aesthetic philosophy.
+                </p>
+                <p class="text-lg font-light leading-relaxed">
+                    Today, Velisca operates at the intersection of artisanal tradition and technological innovation. While we maintain our commitment to handcrafted excellence, we embrace advanced materials and processes that allow us to push the boundaries of what luxury can be in the 21st century.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section id="craftsmanship" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="section-title text-3xl md:text-4xl text-black mb-12">Craftsmanship</h2>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    At Velisca, we believe that exceptional quality is not merely an attribute—it is our essence. Every creation begins with the finest raw materials sourced from responsible producers who share our uncompromising standards. From Italian-milled fabrics to ethically sourced precious metals, we select only materials worthy of our artisans' expertise.
+                </p>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Our atelier blends time-honored techniques with cutting-edge innovation. Master craftspeople with decades of experience work alongside technical specialists who bring expertise in advanced fabrication methods. This harmonious fusion of heritage and innovation defines the Velisca approach.
+                </p>
+                <p class="text-lg font-light leading-relaxed">
+                    We embrace the philosophy of "slow luxury"—the understanding that truly exceptional pieces cannot be rushed. Each Velisca creation passes through multiple stages of meticulous refinement, ensuring that when it reaches you, it carries with it not just material value, but the ineffable quality of human dedication.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="aspect-w-1 aspect-h-1 relative overflow-hidden">
+                    <img src="a1.avif" alt="Velisca Craftsmanship Detail" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-w-1 aspect-h-1 relative overflow-hidden">
+                    <img src="a2.avif" alt="Velisca Materials" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-w-1 aspect-h-1 relative overflow-hidden">
+                    <img src="a3.avif" alt="Velisca Workshop" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-w-1 aspect-h-1 relative overflow-hidden">
+                    <img src="a4.avif" alt="Velisca Artisan" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section id="sustainability" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" style="background-color: var(--beige); color: var(--black);">
+        <h2 class="section-title text-3xl md:text-4xl mb-12 text-center">Sustainability</h2>
+        <div class="max-w-3xl mx-auto">
+            <p class="mb-6 text-lg font-light leading-relaxed text-center">
+                Sustainability is not an initiative at Velisca—it is intrinsic to our definition of contemporary luxury.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
+            <div class="text-center">
+                <div class="mb-6 flex justify-center">
+                    <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                </div>
+                <h3 class="text-xl mb-4 font-light">Materials Revolution</h3>
+                <p class="font-light">
+                    We pioneer the use of next-generation sustainable materials alongside responsibly sourced natural fibers. Our research team constantly explores innovative textiles that minimize environmental impact without compromising on aesthetic or quality.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="mb-6 flex justify-center">
+                    <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl mb-4 font-light">Circular By Design</h3>
+                <p class="font-light">
+                    We design with longevity in mind, creating pieces that transcend seasons and resist obsolescence. Our circular program ensures that Velisca creations can be repaired, renewed, or responsibly recycled at the end of their first life cycle.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="mb-6 flex justify-center">
+                    <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl mb-4 font-light">Ethical Partnership</h3>
+                <p class="font-light">
+                    We maintain transparent relationships with our global network of artisans and suppliers. Our ethical manufacturing program ensures fair wages, safe working conditions, and community investment initiatives across our entire supply chain.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-black text-white reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-last lg:order-first">
+                <div class="aspect-w-16 aspect-h-9 relative overflow-hidden">
+                    <img src="c.jpg" alt="Velisca Team" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div>
+                <h2 class="section-title text-3xl md:text-4xl mb-12" style="color: var(--beige)">Careers</h2>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Joining Velisca means becoming part of a visionary collective dedicated to redefining luxury for a new era. We seek individuals who bring not only exceptional skill, but also intellectual curiosity, creative courage, and a profound commitment to excellence.
+                </p>
+                <p class="mb-6 text-lg font-light leading-relaxed">
+                    Our team spans disciplines from traditional craftsmanship to digital innovation, creating an environment where diverse perspectives converge. We value both technical mastery and conceptual thinking—the ability to execute with precision while imagining new possibilities.
+                </p>
+                <p class="mb-8 text-lg font-light leading-relaxed">
+                    Velisca offers a culture of continuous development, where talent is nurtured and ambition supported. We believe in providing the space and resources for our team members to refine their expertise while expanding their horizons.
+                </p>
+                <a href="#" class="btn-outline inline-block px-8 py-3 text-sm uppercase tracking-wider">Explore Opportunities</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press Section -->
+    <section id="press" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+        <h2 class="section-title text-3xl md:text-4xl text-black mb-12 text-center">Press</h2>
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <p class="text-lg font-light leading-relaxed">
+                For press inquiries and media opportunities, please contact our communications team. Below you'll find a selection of recent features and media highlights.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 flex flex-col border border-gray-200">
+                <div class="mb-4 flex-grow">
+                    <h3 class="text-xl text-black mb-2 font-light">"Velisca: Redefining Modern Luxury"</h3>
+                    <p class="text-sm text-gray-400 mb-4">Vogue, March 2025</p>
+                    <p class="font-light">An in-depth profile of Elena Velisca's vision for the future of conscious luxury and the brand's innovative approach to sustainable design.</p>
+                </div>
+                <a href="#" class="text-black text-sm uppercase tracking-widest hover:underline">Read More</a>
+            </div>
+            <div class="bg-white p-8 flex flex-col border border-gray-200">
+                <div class="mb-4 flex-grow">
+                    <h3 class="text-xl text-black mb-2 font-light">"The New Wave of Luxury"</h3>
+                    <p class="text-sm text-gray-400 mb-4">Financial Times, January 2025</p>
+                    <p class="font-light">How Velisca's commitment to ethical manufacturing is setting new standards in the luxury fashion industry while driving exceptional growth.</p>
+                </div>
+                <a href="#" class="text-black text-sm uppercase tracking-widest hover:underline">Read More</a>
+            </div>
+            <div class="bg-white p-8 flex flex-col border border-gray-200">
+                <div class="mb-4 flex-grow">
+                    <h3 class="text-xl text-black mb-2 font-light">"Material Innovation Award"</h3>
+                    <p class="text-sm text-gray-400 mb-4">Design Council, February 2025</p>
+                    <p class="font-light">Velisca receives recognition for pioneering the development of bio-engineered textiles with unprecedented aesthetic and performance qualities.</p>
+                </div>
+                <a href="#" class="text-black text-sm uppercase tracking-widest hover:underline">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer
+    <footer class="bg-black text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <h3 class="text-xl font-light mb-6" style="color: var(--beige)">VELISCA</h3>
+                    <p class="text-sm font-light text-gray-400">
+                        Refined elegance for the future.<br>
+                        Est. 2018
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm uppercase tracking-wider mb-6" style="color: var(--beige)">Explore</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Collections</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Flagship Stores</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Editorial</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Archive</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm uppercase tracking-wider mb-6" style="color: var(--beige)">Information</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm uppercase tracking-wider mb-6" style="color: var(--beige)">Connect</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Pinterest</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-800 text-sm text-gray-500 flex flex-col md:flex-row justify-between">
+                <p>© 2025 Velisca. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Designed with purpose in Milan, Italy.</p>
+            </div>
+        </div>
+    </footer> -->
+     <!-- Footer -->
+     <footer class="bg-black text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Logo and About -->
+                <div>
+                    <a href="#" class="logo-text text-2xl block mb-6" style="color: #EFE1CB;">
+                        <span class="text-3xl font-bold">V</span>ELISCA
+                    </a>
+                    <p class="text-gray-400 mb-6">Crafting timeless luxury pieces with exceptional materials and artisanal expertise since 2005.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon text-gray-400 hover:text-beige" style="color: #EFE1CB;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-beige" style="color: #EFE1CB;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-beige" style="color: #EFE1CB;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-beige" style="color: #EFE1CB;"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Shopping -->
+                <div>
+                    <h3 class="text-lg mb-6 font-medium">Shopping</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Women</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Men</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Lifestyle</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Gifts</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Collections</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Store Locator</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h3 class="text-lg mb-6 font-medium">Customer Service</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Secure Payment</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Track Your Order</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- About -->
+                <div>
+                    <h3 class="text-lg mb-6 font-medium">About Velisca</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Our Story</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Careers</a></li>
+                        <li><a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 Velisca. All rights reserved.
+                </div>
+                <div class="flex space-x-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Privacy Policy</a>
+                    <a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Terms of Service</a>
+                    <a href="#" class="hover:text-beige transition-colors" style="color: #EFE1CB;">Cookie Preferences</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Reveal animations on scroll
+            const revealElements = document.querySelectorAll(".reveal");
+            revealElements.forEach((element) => {
+                gsap.fromTo(
+                    element,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        }
+                    }
+                );
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
