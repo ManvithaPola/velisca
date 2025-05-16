@@ -63,7 +63,7 @@ http://manvitha.free.nf/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/velisca.git
+   git clone https://github.com/ManvithaPola/velisca.git
 
 2. 🗂️ **Import Database**
 
